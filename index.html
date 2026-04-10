@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>4月內容總規劃｜@lakesure_bell</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700;900&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --blush:#F2CECE; --rose:#E0A0A0; --deep-rose:#C07878;
+  --mauve:#C890BE; --lavender:#EDE0F5;
+  --cream:#FDF7F2; --warm:#FFFAF6;
+  --text:#2E1E1E; --mid:#7A5555; --light:#B09090;
+  --gold:#C8986A; --gold-light:#F5E6D0;
+  --mint:#88B5A8; --mint-light:#E0F2EB;
+  --sky:#8898C8; --sky-light:#E8EDF8;
+  --border:#F0E0E0;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);}
+
+/* HEADER */
+.header{
+  background:linear-gradient(135deg,#F5C8C8 0%,#EDD8F0 45%,#C8DCF0 100%);
+  padding:36px 24px 42px;text-align:center;position:relative;overflow:hidden;
+}
+.header::before{content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at 20% 50%,rgba(255,255,255,.2) 0%,transparent 60%),
+             radial-gradient(circle at 80% 30%,rgba(255,255,255,.15) 0%,transparent 50%);}
+.header::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:24px;
+  background:var(--cream);clip-path:ellipse(55% 100% at 50% 100%);}
+.header-inner{position:relative;z-index:1;}
+.h-badge{display:inline-block;background:rgba(255,255,255,.65);color:var(--deep-rose);
+  font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  padding:4px 14px;border-radius:20px;margin-bottom:10px;}
+.header h1{font-family:'Noto Serif TC',serif;font-size:24px;font-weight:900;color:var(--text);margin-bottom:4px;}
+.header h1 em{color:var(--deep-rose);font-style:normal;}
+.header p{font-size:13px;color:var(--mid);}
+
+/* PHASE PILLS */
+.phase-bar{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-top:14px;}
+.phase-pill{background:rgba(255,255,255,.6);border-radius:20px;padding:5px 12px;
+  font-size:11px;font-weight:700;color:var(--text);}
+.phase-pill span{color:var(--deep-rose);}
+
+/* TABS */
+.tabs{display:flex;gap:8px;justify-content:center;padding:22px 16px 0;flex-wrap:wrap;}
+.tab{padding:9px 18px;border-radius:30px;border:2px solid var(--blush);
+  background:white;color:var(--mid);font-family:'DM Sans',sans-serif;
+  font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;white-space:nowrap;}
+.tab.active{background:var(--deep-rose);border-color:var(--deep-rose);color:white;
+  box-shadow:0 4px 14px rgba(192,120,120,.3);}
+.tab:hover:not(.active){background:var(--blush);border-color:var(--rose);}
+
+/* MAIN */
+.main{max-width:900px;margin:0 auto;padding:20px 16px 80px;}
+.view{display:none;}.view.active{display:block;}
+
+/* SECTION TITLE */
+.sec-title{font-family:'Noto Serif TC',serif;font-size:15px;font-weight:700;
+  color:var(--text);margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+.sec-title::before{content:'';width:3px;height:16px;
+  background:linear-gradient(180deg,var(--deep-rose),var(--mauve));
+  border-radius:2px;flex-shrink:0;}
+
+/* LEGEND */
+.legend-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;}
+.leg-item{display:flex;align-items:center;gap:5px;background:white;
+  border-radius:20px;padding:4px 10px;font-size:11px;font-weight:700;
+  border:1px solid var(--border);color:var(--mid);}
+.leg-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
+
+/* ── CALENDAR ── */
+.cal-weekdays{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin-bottom:6px;}
+.wd-label{text-align:center;font-size:11px;font-weight:700;color:var(--light);padding:5px 0;}
+
+.week-block{margin-bottom:12px;}
+.week-theme-bar{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:10px 16px;border-radius:14px 14px 0 0;cursor:pointer;
+}
+.wt-left{}
+.wt-phase{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+  color:rgba(255,255,255,.8);margin-bottom:2px;}
+.wt-title{font-family:'Noto Serif TC',serif;font-size:14px;font-weight:700;color:white;}
+.wt-desc{font-size:11px;color:rgba(255,255,255,.75);margin-top:2px;}
+.wt-toggle{color:rgba(255,255,255,.8);font-size:18px;transition:transform .3s;}
+.wt-toggle.open{transform:rotate(180deg);}
+
+.week-grid{
+  display:grid;grid-template-columns:repeat(7,1fr);gap:5px;
+  background:white;border:1.5px solid var(--border);
+  border-top:none;border-radius:0 0 14px 14px;padding:8px;
+}
+.cal-cell{
+  border-radius:12px;padding:7px 5px 8px;text-align:center;
+  cursor:pointer;transition:all .2s;min-height:90px;
+  border:1.5px solid transparent;
+  display:flex;flex-direction:column;align-items:center;
+}
+.cal-cell:hover{border-color:var(--rose);box-shadow:0 3px 12px rgba(192,120,120,.15);}
+.cal-cell.empty{cursor:default;background:transparent;min-height:0;}
+.cal-cell.empty:hover{border-color:transparent;box-shadow:none;}
+.cal-cell.today{background:#FFF0F0;border-color:var(--deep-rose)!important;}
+.cal-cell.special{background:var(--sky-light);border-color:#A0B0D8;}
+
+.c-date{font-size:13px;font-weight:700;color:var(--text);margin-bottom:4px;line-height:1;}
+.cal-cell.today .c-date{
+  background:var(--deep-rose);color:white;width:22px;height:22px;
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:11px;margin:0 auto 4px;}
+.cal-cell.special .c-date{color:#405898;}
+
+.c-tags{display:flex;flex-direction:column;gap:2px;width:100%;}
+.c-tag{font-size:9px;font-weight:700;padding:2px 3px;border-radius:5px;
+  line-height:1.3;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.tag-reels{background:#FDDCDC;color:var(--deep-rose);}
+.tag-post{background:var(--lavender);color:#8855A0;}
+.tag-story{background:#FDF0D5;color:#9A6E38;}
+.tag-ritual{background:var(--sky-light);color:#405898;}
+
+/* Week theme colors */
+.wt-c1{background:linear-gradient(135deg,#C890BE,#B070A8);}
+.wt-c2{background:linear-gradient(135deg,#C07878,#A86060);}
+.wt-c3{background:linear-gradient(135deg,#8898C8,#7080B8);}
+.wt-c4{background:linear-gradient(135deg,#88B5A8,#60988A);}
+
+/* ── DETAIL POPUP ── */
+.popup-overlay{display:none;position:fixed;inset:0;
+  background:rgba(46,30,30,.45);backdrop-filter:blur(5px);
+  z-index:200;align-items:center;justify-content:center;padding:16px;}
+.popup-overlay.show{display:flex;}
+.popup{background:white;border-radius:24px;padding:24px;
+  max-width:500px;width:100%;
+  box-shadow:0 24px 60px rgba(46,30,30,.2);
+  animation:popIn .25s ease;max-height:88vh;overflow-y:auto;}
+@keyframes popIn{from{transform:scale(.9);opacity:0;}to{transform:scale(1);opacity:1;}}
+.popup-hd{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:16px;gap:8px;}
+.popup-title{font-family:'Noto Serif TC',serif;font-size:17px;font-weight:700;color:var(--text);}
+.popup-sub{font-size:11px;color:var(--light);margin-top:3px;}
+.popup-close{background:var(--blush);border:none;width:30px;height:30px;
+  border-radius:50%;cursor:pointer;font-size:14px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;color:var(--mid);transition:background .2s;}
+.popup-close:hover{background:var(--rose);color:white;}
+
+/* content blocks inside popup */
+.content-block{margin-bottom:14px;}
+.content-block:last-child{margin-bottom:0;}
+.cb-header{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
+.cb-icon{width:32px;height:32px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+.cb-icon-reels{background:#FDDCDC;}
+.cb-icon-post{background:var(--lavender);}
+.cb-icon-story{background:#FDF0D5;}
+.cb-icon-ritual{background:var(--sky-light);}
+.cb-label{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;}
+.cb-label-reels{color:var(--deep-rose);}
+.cb-label-post{color:#8855A0;}
+.cb-label-story{color:#9A6E38;}
+.cb-label-ritual{color:#405898;}
+.cb-title{font-size:13px;font-weight:700;color:var(--text);}
+
+.cb-body{background:var(--warm);border-radius:12px;padding:11px 13px;border:1px solid var(--border);}
+.cb-theme{font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px;}
+.cb-hook{font-size:12px;color:var(--deep-rose);margin-bottom:5px;font-style:italic;}
+.cb-desc{font-size:12px;color:var(--mid);line-height:1.6;}
+.cb-example{font-size:11px;color:var(--mid);margin-top:6px;padding:6px 9px;
+  background:white;border-radius:8px;border-left:2px solid var(--rose);line-height:1.6;}
+.cb-tip{font-size:11px;color:var(--light);margin-top:5px;font-style:italic;}
+
+.story-list{display:flex;flex-direction:column;gap:5px;margin-top:0;}
+.story-item{display:flex;gap:8px;align-items:flex-start;
+  background:white;border-radius:10px;padding:8px 10px;border:1px solid var(--border);}
+.si-num{width:20px;height:20px;border-radius:6px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:10px;font-weight:700;color:white;background:var(--gold);}
+.si-body{}
+.si-type{font-size:9px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--light);margin-bottom:1px;}
+.si-desc{font-size:11px;color:var(--mid);line-height:1.5;}
+
+.psych-badge{display:inline-block;background:linear-gradient(135deg,var(--blush),var(--lavender));
+  border-radius:8px;padding:5px 10px;font-size:11px;color:var(--text);
+  margin-bottom:10px;border:1px solid var(--border);}
+.psych-badge strong{color:var(--deep-rose);}
+
+/* OVERVIEW TAB */
+.overview-week{background:white;border-radius:18px;border:1.5px solid var(--border);
+  overflow:hidden;margin-bottom:14px;}
+.ow-header{padding:14px 18px;display:flex;align-items:center;gap:12px;}
+.ow-phase-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+.ow-title{font-family:'Noto Serif TC',serif;font-size:15px;font-weight:700;color:var(--text);}
+.ow-sub{font-size:12px;color:var(--mid);margin-top:2px;}
+.ow-body{padding:0 18px 16px;}
+.ow-psych{font-size:12px;color:var(--mid);line-height:1.65;
+  background:var(--warm);border-radius:10px;padding:10px 12px;margin-bottom:10px;border:1px solid var(--border);}
+.ow-psych strong{color:var(--deep-rose);}
+.ow-content-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
+@media(max-width:520px){.ow-content-row{grid-template-columns:1fr;}}
+.ow-ct{border-radius:12px;padding:10px;}
+.ow-ct-reels{background:#FFF0F0;}
+.ow-ct-post{background:var(--lavender)20;}
+.ow-ct-story{background:#FDF8F0;}
+.ow-ct h5{font-size:11px;font-weight:700;margin-bottom:5px;}
+.ow-ct-reels h5{color:var(--deep-rose);}
+.ow-ct-post h5{color:#8855A0;}
+.ow-ct-story h5{color:#9A6E38;}
+.ow-ct ul{list-style:none;}
+.ow-ct li{font-size:11px;color:var(--mid);padding:2px 0;line-height:1.5;}
+.ow-ct li::before{content:'· ';color:var(--rose);}
+
+/* scrollbar */
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-track{background:var(--cream);}
+::-webkit-scrollbar-thumb{background:var(--rose);border-radius:3px;}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="h-badge">4月內容總規劃</div>
+    <h1>@lakesure_bell <em>4/13–4/30</em></h1>
+    <p>限動 × 貼文 × Reels 全內容安排｜觀眾心理四階段</p>
+    <div class="phase-bar">
+      <div class="phase-pill"><span>W1</span> 認識你</div>
+      <div class="phase-pill"><span>W2</span> 建立信任</div>
+      <div class="phase-pill"><span>W3</span> 情感共鳴</div>
+      <div class="phase-pill"><span>W4</span> 引導行動</div>
+    </div>
+  </div>
+</div>
+
+<div class="tabs">
+  <button class="tab active" onclick="switchTab('calendar')">🗓️ 月曆點擊版</button>
+  <button class="tab" onclick="switchTab('overview')">📋 週策略總覽</button>
+</div>
+
+<div class="main">
+
+<!-- ══ TAB 1：月曆 ══ -->
+<div id="tab-calendar" class="view active">
+
+  <div class="legend-row">
+    <div class="leg-item"><div class="leg-dot" style="background:#C07878"></div>🎬 Reels</div>
+    <div class="leg-item"><div class="leg-dot" style="background:#C890BE"></div>✍️ 貼文</div>
+    <div class="leg-item"><div class="leg-dot" style="background:#C8A870"></div>📱 限動</div>
+    <div class="leg-item"><div class="leg-dot" style="background:#8898C8"></div>🙏 法會</div>
+  </div>
+
+  <div class="cal-weekdays">
+    <div class="wd-label">日</div><div class="wd-label">一</div><div class="wd-label">二</div>
+    <div class="wd-label">三</div><div class="wd-label">四</div><div class="wd-label">五</div>
+    <div class="wd-label">六</div>
+  </div>
+
+  <div id="cal-body"></div>
+
+</div>
+
+<!-- ══ TAB 2：週策略 ══ -->
+<div id="tab-overview" class="view">
+
+  <!-- W1 -->
+  <div class="overview-week">
+    <div class="ow-header">
+      <div class="ow-phase-dot" style="background:#C890BE"></div>
+      <div>
+        <div class="ow-title">第一週 4/13–4/19｜認識你</div>
+        <div class="ow-sub">法會收尾 + 重新介紹品牌，讓觀眾知道貝兒是誰</div>
+      </div>
+    </div>
+    <div class="ow-body">
+      <div class="ow-psych">🧠 <strong>觀眾心理：</strong>陌生人第一次看到你，需要在 3 秒內知道「這個人跟我有關係嗎？」。這週的所有內容要回答這個問題——你是用命理幫助感情卡關的人，而且你自己就是活生生的案例（拜月老找到老公）。</div>
+      <div class="ow-content-row">
+        <div class="ow-ct ow-ct-reels">
+          <h5>🎬 REELS（1支）</h5>
+          <ul>
+            <li>主題：「我是誰」品牌介紹</li>
+            <li>切入點：我自己拜月老找到老公的故事</li>
+            <li>結尾帶：八字 × 塔羅諮詢</li>
+          </ul>
+        </div>
+        <div class="ow-ct ow-ct-post">
+          <h5>✍️ 貼文（2篇）</h5>
+          <ul>
+            <li>4/16：法會圓滿感謝文</li>
+            <li>4/18：「為什麼我從算命轉做命理療癒」品牌故事</li>
+          </ul>
+        </div>
+        <div class="ow-ct ow-ct-story">
+          <h5>📱 限動重點</h5>
+          <ul>
+            <li>4/13：三族群投票開場</li>
+            <li>4/14–15：法會直播感</li>
+            <li>4/16–19：每日 5 篇基本節奏</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- W2 -->
+  <div class="overview-week">
+    <div class="ow-header">
+      <div class="ow-phase-dot" style="background:#C07878"></div>
+      <div>
+        <div class="ow-title">第二週 4/20–4/26｜建立信任</div>
+        <div class="ow-sub">八字個性解讀 + 個案故事，讓觀眾覺得「她真的懂」</div>
+      </div>
+    </div>
+    <div class="ow-body">
+      <div class="ow-psych">🧠 <strong>觀眾心理：</strong>已經跟到你的人在觀察「她有料嗎？」。這週要輸出你最有把握的東西——用八字看個性和感情模式。重點不是說得多深，而是說中她的感受。說中了，她就信你了。</div>
+      <div class="ow-content-row">
+        <div class="ow-ct ow-ct-reels">
+          <h5>🎬 REELS（1支）</h5>
+          <ul>
+            <li>主題：某日元的人感情模式</li>
+            <li>切入點：「為什麼你一直遇到同一種人」</li>
+            <li>結尾帶：命盤諮詢</li>
+          </ul>
+        </div>
+        <div class="ow-ct ow-ct-post">
+          <h5>✍️ 貼文（2篇）</h5>
+          <ul>
+            <li>4/22：八字感情觀系列（日元特質）</li>
+            <li>4/24：個案故事（單身很久的女生）</li>
+          </ul>
+        </div>
+        <div class="ow-ct ow-ct-story">
+          <h5>📱 限動重點</h5>
+          <ul>
+            <li>每日 5 篇基本節奏</li>
+            <li>4/23 Reels 上線聯動</li>
+            <li>偷偷問：說你的日元</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- W3 -->
+  <div class="overview-week">
+    <div class="ow-header">
+      <div class="ow-phase-dot" style="background:#8898C8"></div>
+      <div>
+        <div class="ow-title">第三週 4/27–5/3｜情感共鳴</div>
+        <div class="ow-sub">三族群內容大量輸出，讓觀眾覺得「這說的就是我」</div>
+      </div>
+    </div>
+    <div class="ow-body">
+      <div class="ow-psych">🧠 <strong>觀眾心理：</strong>這週要打中情感。觀眾會分享、會留言、會傳給朋友的內容，一定是「說中了我說不出口的感受」。所以這週所有內容都要從三族群的情緒出發，而不是從知識出發。</div>
+      <div class="ow-content-row">
+        <div class="ow-ct ow-ct-reels">
+          <h5>🎬 REELS（1支）</h5>
+          <ul>
+            <li>主題：三族群塔羅各一張牌</li>
+            <li>切入點：「給單身/曖昧/放不下的你」</li>
+            <li>目標：高完播率 + 分享</li>
+          </ul>
+        </div>
+        <div class="ow-ct ow-ct-post">
+          <h5>✍️ 貼文（2篇）</h5>
+          <ul>
+            <li>4/29：療癒金句型（分享率最高）</li>
+            <li>5/1：個案故事（曖昧卡關的女生）</li>
+          </ul>
+        </div>
+        <div class="ow-ct ow-ct-story">
+          <h5>📱 限動重點</h5>
+          <ul>
+            <li>每天點名一個族群說話</li>
+            <li>4/30 Reels 上線聯動</li>
+            <li>偷偷問：說出你的狀況</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- W4 partial -->
+  <div class="overview-week">
+    <div class="ow-header">
+      <div class="ow-phase-dot" style="background:#88B5A8"></div>
+      <div>
+        <div class="ow-title">第四週 4/28–4/30（月底收尾）｜引導行動</div>
+        <div class="ow-sub">把前三週累積的信任，轉化成諮詢私訊</div>
+      </div>
+    </div>
+    <div class="ow-body">
+      <div class="ow-psych">🧠 <strong>觀眾心理：</strong>看了幾週的人已經「暖身完畢」，現在她缺的只是一個理由和一個方法聯繫你。這週的 CTA 要更直接，讓她知道找你的方式、流程、和她可以期待什麼。</div>
+      <div class="ow-content-row">
+        <div class="ow-ct ow-ct-reels">
+          <h5>🎬 REELS</h5>
+          <ul><li>月底延伸至5月繼續</li></ul>
+        </div>
+        <div class="ow-ct ow-ct-post">
+          <h5>✍️ 貼文</h5>
+          <ul><li>月底諮詢缺額 or 5月預告</li></ul>
+        </div>
+        <div class="ow-ct ow-ct-story">
+          <h5>📱 限動重點</h5>
+          <ul><li>CTA 更直接：說清楚怎麼找你</li><li>月底感謝 + 5月預告</li></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div><!-- /main -->
+
+<!-- POPUP -->
+<div class="popup-overlay" id="popup-overlay" onclick="closePopup(event)">
+  <div class="popup">
+    <div class="popup-hd">
+      <div>
+        <div class="popup-title" id="popup-title"></div>
+        <div class="popup-sub" id="popup-sub"></div>
+      </div>
+      <button class="popup-close" onclick="closePopup()">✕</button>
+    </div>
+    <div id="popup-body"></div>
+  </div>
+</div>
+
+<script>
+function switchTab(id){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  event.target.classList.add('active');
+}
+
+// ── FULL CONTENT DATA ──
+const days = {
+  '4/13':{
+    dow:0, phase:'W1', special:false,
+    tags:[['tag-story','限動'],['tag-story','限動']],
+    title:'週日 4/13｜輕鬆開場',
+    psych:'週日輕發，讓已追蹤的人知道新週期開始了',
+    reels:null,
+    post:null,
+    story:{
+      theme:'三族群投票 + 生活感',
+      slots:[
+        {type:'生活感',desc:'今天的日常畫面，搭配互動貼紙'},
+        {type:'互動',desc:'「你現在是哪一種？」三族群投票'},
+        {type:'命理',desc:'幫自己抽一張今日塔羅，說一句話'},
+        {type:'CTA',desc:'「本週諮詢開始接受預約，有興趣私訊我 🌸」'},
+      ]
+    }
+  },
+  '4/14':{
+    dow:1, phase:'W1', special:true,
+    tags:[['tag-ritual','法會'],['tag-ritual','法會'],['tag-story','限動']],
+    title:'週一 4/14｜彰化祈福法會 第一天',
+    psych:'法會日，讓觀眾感受到儀式感和你的專業',
+    reels:null,
+    post:null,
+    story:{
+      theme:'法會為主，穿插命理',
+      slots:[
+        {type:'法會',desc:'現場畫面開場，今天的意義與項目'},
+        {type:'法會',desc:'補財/補庫/補運/解冤說明，用你的話說'},
+        {type:'命理穿插',desc:'祈福 × 命理：命盤給方向，祈福補能量'},
+        {type:'法會',desc:'儀式進行中畫面，疏文上報'},
+        {type:'CTA',desc:'「明天法會第二天，名額還有，今晚私訊我」'},
+      ]
+    }
+  },
+  '4/15':{
+    dow:2, phase:'W1', special:true,
+    tags:[['tag-ritual','法會'],['tag-story','限動'],['tag-story','CTA']],
+    title:'週二 4/15｜彰化祈福法會 第二天',
+    psych:'法會收尾，開始帶回命理主線',
+    reels:null,
+    post:null,
+    story:{
+      theme:'法會圓滿，自然回歸命理',
+      slots:[
+        {type:'法會',desc:'第二天早晨開場，延續儀式感'},
+        {type:'法會',desc:'參與者回饋 or 感謝大家的心意'},
+        {type:'命理',desc:'法會後一句感受，帶回命理話題'},
+        {type:'CTA',desc:'「法會圓滿，諮詢繼續，有需要私訊我 🌸」'},
+      ]
+    }
+  },
+  '4/16':{
+    dow:3, phase:'W1', special:false,
+    tags:[['tag-post','貼文'],['tag-story','限動']],
+    title:'週三 4/16｜法會後回歸 + 貼文',
+    psych:'法會結束，用感謝文自然回歸品牌主線',
+    reels:null,
+    post:{
+      type:'感謝文 / 法會圓滿',
+      hook:'「這次法會，讓我最感動的是...」',
+      theme:'法會圓滿感謝文，分享你在現場的感受和觀察',
+      desc:'不是報告，是你的真實感受。說說這次法會讓你印象最深的一幕，帶出你做這件事的初心。結尾自然帶諮詢。',
+      example:'「辦完法會每次都有一種很踏實的感覺，看到大家為自己的生活祈福，我就覺得這件事值得繼續做 🥹 下週回到命盤和塔羅，有想諮詢的可以先私訊我安排 🌸」',
+      cta:'結尾留諮詢入口'
+    },
+    story:{
+      theme:'回歸命理日常',
+      slots:[
+        {type:'生活感',desc:'法會後回家的日常，孩子 or 工作桌面'},
+        {type:'諮詢',desc:'今日一句：諮詢心得或感觸'},
+        {type:'互動',desc:'偷偷問：說出你現在的感情狀況'},
+        {type:'命理',desc:'今日塔羅給三族群一句話'},
+        {type:'CTA',desc:'本週諮詢缺額提醒'},
+      ]
+    }
+  },
+  '4/17':{
+    dow:4, phase:'W1', special:false,
+    tags:[['tag-story','限動']],
+    title:'週四 4/17｜八字小教室',
+    psych:'知識型內容，建立專業感',
+    reels:null,
+    post:null,
+    story:{
+      theme:'八字知識 + 互動',
+      slots:[
+        {type:'生活感',desc:'今天的狀態 / 帶孩子的日常一幕'},
+        {type:'命理',desc:'八字一個概念：用一句說中某族群的感受'},
+        {type:'互動',desc:'「你是哪個日元？留言告訴我」'},
+        {type:'CTA',desc:'「想知道自己八字怎麼看感情，私訊我」'},
+      ]
+    }
+  },
+  '4/18':{
+    dow:5, phase:'W1', special:false,
+    tags:[['tag-post','貼文'],['tag-story','限動']],
+    title:'週五 4/18｜品牌故事貼文',
+    psych:'用個人故事建立最深的信任感，這是所有內容裡最有說服力的',
+    reels:null,
+    post:{
+      type:'品牌故事 / 關於我',
+      hook:'「我自己就是靠拜月老找到老公的——所以我知道這件事真的有用」',
+      theme:'從自己的故事出發，說明為什麼你做命理諮詢，為什麼專注在感情',
+      desc:'用菜菜風格寫，情緒優先。從你單身很久、拜月老、找到老公、到現在幫助有同樣困境的人。這篇是讓觀眾從「路人」變成「我想找她」的關鍵。',
+      example:'「我以前單身很久，不是沒有人追，是每次都莫名其妙結束。後來我開始固定拜月老...現在我嫁了，然後我開始做命理，因為我知道那種感覺有多難熬，而我想幫更多人找到方向 🌙」',
+      cta:'「如果你也有這種感覺，八字 or 塔羅可能說得出你還說不出口的答案」'
+    },
+    story:{
+      theme:'週五收尾 + CTA',
+      slots:[
+        {type:'生活感',desc:'週末前的日常片段'},
+        {type:'貼文分享',desc:'今天貼文上線，限動帶流量去貼文'},
+        {type:'CTA',desc:'「本週最後幾個諮詢缺額，週末前私訊我安排」'},
+        {type:'互動',desc:'投票：「你相信八字裡藏著你的感情答案嗎？」'},
+      ]
+    }
+  },
+  '4/19':{
+    dow:6, phase:'W1', special:false,
+    tags:[['tag-story','限動']],
+    title:'週六 4/19｜輕鬆互動日',
+    psych:'週末輕發，維持存在感',
+    reels:null,
+    post:null,
+    story:{
+      theme:'生活感 + 互動',
+      slots:[
+        {type:'生活感',desc:'週末日常，帶孩子 or 自己充電的樣子'},
+        {type:'互動',desc:'輕鬆投票：「週末你的狀態是？」'},
+        {type:'命理',desc:'一句療癒的話給感情卡關的人'},
+      ]
+    }
+  },
+  '4/20':{
+    dow:0, phase:'W2', special:false,
+    tags:[['tag-story','限動']],
+    title:'週日 4/20｜第二週開始',
+    psych:'輕發，讓觀眾知道新週期的能量',
+    reels:null, post:null,
+    story:{
+      theme:'輕鬆生活感',
+      slots:[
+        {type:'生活感',desc:'週日的狀態，一句話 + 互動貼紙'},
+        {type:'預告',desc:'「這週要來說說八字裡的感情密碼，你準備好了嗎 👀」'},
+      ]
+    }
+  },
+  '4/21':{
+    dow:1, phase:'W2', special:false,
+    tags:[['tag-story','限動']],
+    title:'週一 4/21｜活絡互動',
+    psych:'週一重啟互動，讓觀眾習慣來找你',
+    reels:null, post:null,
+    story:{
+      theme:'互動開週',
+      slots:[
+        {type:'生活感',desc:'週一的狀態，今天諮詢排程'},
+        {type:'互動',desc:'偷偷問：說出你的感情狀況，我用八字直覺說說'},
+        {type:'命理',desc:'今日塔羅一句給感情卡關的人'},
+        {type:'CTA',desc:'本週諮詢缺額開放'},
+      ]
+    }
+  },
+  '4/22':{
+    dow:2, phase:'W2', special:false,
+    tags:[['tag-post','貼文'],['tag-story','限動']],
+    title:'週二 4/22｜八字感情觀貼文',
+    psych:'知識型貼文建立專業，讓觀眾留下來看更多',
+    reels:null,
+    post:{
+      type:'八字感情觀系列',
+      hook:'「為什麼你老是喜歡上對你不好的人？你的八字有答案」',
+      theme:'選一個日元（建議甲木或丁火），說這種人在感情裡的模式',
+      desc:'用菜菜風格，細膩描述這種人的感情困境，讓讀者對號入座。說完困境，再說「但這不是你的錯，這是你的個性特質，只是需要用對方式」。結尾帶諮詢。',
+      example:'「甲木的人在感情裡有一個最大的困境——她很難低頭。不是不愛，是她的骨子裡有一種驕傲，讓她寧願沉默也不開口...這種人談戀愛其實很累，因為她對自己的要求比對方還高 🌱」',
+      cta:'「如果這說的是你，你的命盤裡還藏著更多——私訊我」'
+    },
+    story:{
+      theme:'貼文聯動 + 互動',
+      slots:[
+        {type:'貼文分享',desc:'今天貼文上線，限動分享帶流量'},
+        {type:'互動',desc:'「你是哪個日元？看看說中了嗎？」'},
+        {type:'命理',desc:'延伸一個相關的塔羅觀點'},
+        {type:'CTA',desc:'諮詢缺額提醒'},
+      ]
+    }
+  },
+  '4/23':{
+    dow:3, phase:'W2', special:false,
+    tags:[['tag-reels','Reels'],['tag-story','限動']],
+    title:'週三 4/23｜Reels 上線',
+    psych:'Reels 算法最需要的是開頭 3 秒留住人，然後用情緒讓人看完',
+    reels:{
+      type:'八字感情模式',
+      hook:'「為什麼你一直遇到同一種人——你的八字說了算」',
+      theme:'某日元在感情裡的重複模式，用可愛口吻說，結尾問「你是哪種？」',
+      structure:'① 開頭點名：「如果你談了好幾段，每次都很像，這支影片說的就是你」→ ② 解釋八字裡的感情模式（一個特質就好）→ ③ 說中感受：「你是不是也這樣？」→ ④ CTA：「想知道你的命盤怎麼說，私訊我」',
+      desc:'不需要列命盤，只說一個讓觀眾「哇這說的是我」的特質就夠。可愛療癒的語氣，不超過 60 秒。'
+    },
+    post:null,
+    story:{
+      theme:'Reels 聯動 + 互動',
+      slots:[
+        {type:'Reels分享',desc:'今天 Reels 上線，限動帶流量，問「說中你了嗎？」'},
+        {type:'互動',desc:'「你的日元是什麼？」讓觀眾留言'},
+        {type:'CTA',desc:'命盤諮詢缺額'},
+      ]
+    }
+  },
+  '4/24':{
+    dow:4, phase:'W2', special:false,
+    tags:[['tag-post','貼文'],['tag-story','限動']],
+    title:'週四 4/24｜個案故事貼文',
+    psych:'個案故事是信任感最強的內容——觀眾會代入自己，然後想「那我呢？」',
+    reels:null,
+    post:{
+      type:'個案故事',
+      hook:'「她說她單身六年，不是沒人追，是每次都莫名結束。我看了她的八字，我懂了。」',
+      theme:'單身很久的女生個案，說出她的困境和八字裡藏著的模式',
+      desc:'不說名字，只說情境。用第三人稱描述，讓讀者代入。說出她的痛點，說出你從八字裡看到了什麼，然後說她諮詢完之後有什麼感受。',
+      example:'「她說她不是沒有追求者，就是每次都在曖昧階段莫名結束，對方也沒做什麼，就是沒下文。我看了她的命盤，發現她有一個很常見但很多人沒注意到的特質...」',
+      cta:'「如果你也有這種感覺，可以來找我看看你的命盤」'
+    },
+    story:{
+      theme:'知識 + 互動',
+      slots:[
+        {type:'貼文分享',desc:'今天貼文上線，限動帶流量'},
+        {type:'命理',desc:'延伸一個八字觀點，說單身族群的感受'},
+        {type:'互動',desc:'偷偷問：你的感情遇到最大的困境是什麼？'},
+        {type:'CTA',desc:'諮詢缺額提醒'},
+      ]
+    }
+  },
+  '4/25':{
+    dow:5, phase:'W2', special:false,
+    tags:[['tag-story','限動']],
+    title:'週五 4/25｜週五引流',
+    psych:'週末前是私訊轉換的黃金時間，觀眾這時候比較有空',
+    reels:null, post:null,
+    story:{
+      theme:'週五收尾 + 強化 CTA',
+      slots:[
+        {type:'生活感',desc:'週末前的狀態，工作桌面或孩子日常'},
+        {type:'命理',desc:'今日塔羅給三族群，週末能量帶走'},
+        {type:'CTA',desc:'「這週最後缺額，想諮詢的週末前私訊我 🌸」'},
+        {type:'互動',desc:'「你這週感情能量怎麼樣？」投票'},
+      ]
+    }
+  },
+  '4/26':{
+    dow:6, phase:'W2', special:false,
+    tags:[['tag-story','限動']],
+    title:'週六 4/26｜週末互動',
+    psych:'週末輕發維持存在感',
+    reels:null, post:null,
+    story:{
+      theme:'生活感互動',
+      slots:[
+        {type:'生活感',desc:'週末日常，真實的你'},
+        {type:'互動',desc:'輕鬆互動，問一個跟感情有關的輕話題'},
+      ]
+    }
+  },
+  '4/27':{
+    dow:0, phase:'W3', special:false,
+    tags:[['tag-story','限動']],
+    title:'週日 4/27｜情感共鳴週開始',
+    psych:'輕發預告這週要直接說三族群的心情',
+    reels:null, post:null,
+    story:{
+      theme:'預告 + 生活感',
+      slots:[
+        {type:'生活感',desc:'週日狀態，充電日'},
+        {type:'預告',desc:'「這週我要直接說說三種人的心情——單身、曖昧、放不下，你是哪種？」'},
+      ]
+    }
+  },
+  '4/28':{
+    dow:1, phase:'W3', special:false,
+    tags:[['tag-story','限動']],
+    title:'週一 4/28｜單身族群專屬日',
+    psych:'單身很久的人最需要被理解，不是預言，是「你沒問題」',
+    reels:null, post:null,
+    story:{
+      theme:'專門說給單身族群聽',
+      slots:[
+        {type:'生活感',desc:'今天的日常開場'},
+        {type:'命理',desc:'給單身很久的你：「你不是沒桃花，是你有一道自己都沒發現的牆」'},
+        {type:'互動',desc:'偷偷問：單身多久了？說說你覺得卡在哪'},
+        {type:'命理',desc:'塔羅今日給單身族群的一句話'},
+        {type:'CTA',desc:'「想知道你的桃花卡在哪，私訊我 🌸」'},
+      ]
+    }
+  },
+  '4/29':{
+    dow:2, phase:'W3', special:false,
+    tags:[['tag-post','貼文'],['tag-story','限動']],
+    title:'週二 4/29｜療癒金句貼文',
+    psych:'療癒金句是分享率最高的內容，觀眾會存起來或傳給朋友',
+    reels:null,
+    post:{
+      type:'療癒金句型',
+      hook:'「曖昧最累的地方，是你不知道自己在等什麼」',
+      theme:'給曖昧族群的療癒文，說中他們說不出口的感受',
+      desc:'用菜菜風格，細膩情緒描寫。說出曖昧中最折磨的狀態，給一個溫柔的觀點，結尾用一句金句收。不需要解決方案，只需要讓她覺得「有人懂我」。',
+      example:'「曖昧中最難受的不是他沒有回應，是你自己也不知道自己在等什麼。你不知道該繼續等，還是放手，你甚至不知道自己算不算喜歡他...」',
+      cta:'「如果你現在是這種狀態，塔羅或許能說出你心裡那個說不清楚的答案」'
+    },
+    story:{
+      theme:'曖昧族群主題日',
+      slots:[
+        {type:'貼文分享',desc:'今天貼文上線，分享去貼文'},
+        {type:'命理',desc:'給曖昧中的你一句塔羅'},
+        {type:'互動',desc:'「他現在是什麼態度？」讓大家說說'},
+        {type:'CTA',desc:'「曖昧卡關想諮詢，私訊我」'},
+      ]
+    }
+  },
+  '4/30':{
+    dow:3, phase:'W3', special:false,
+    tags:[['tag-reels','Reels'],['tag-story','限動']],
+    title:'週三 4/30｜三族群塔羅 Reels',
+    psych:'三族群同時打到，完播率高，分享率高，自然引發私訊',
+    reels:{
+      type:'三族群塔羅',
+      hook:'「今天我分別抽了一張牌，給三種在感情裡卡關的你」',
+      theme:'給單身/曖昧/放不下的人各一張牌，各說一段共鳴的話',
+      structure:'① 開場：「三種人，三張牌」→ ② 給單身很久的你（牌 + 一段說中心情的話）→ ③ 給曖昧中的你（牌 + 一段話）→ ④ 給分手放不下的你（牌 + 一段話）→ ⑤ 「你是哪一種？留言告訴我」',
+      desc:'每段只說 15–20 秒，重點是情緒共鳴，不是牌的知識。說中了，她就會留言、分享、私訊。'
+    },
+    post:null,
+    story:{
+      theme:'Reels 聯動 + 月底收尾',
+      slots:[
+        {type:'Reels分享',desc:'Reels 上線，分享去限動，問「你是哪種？」'},
+        {type:'互動',desc:'投票：「說中你了嗎？」'},
+        {type:'CTA',desc:'「4 月最後一天，還有幾個諮詢缺額，私訊我 🌸」'},
+        {type:'生活感',desc:'月底感謝：「謝謝這個月陪伴我的你們 🥹」'},
+      ]
+    }
+  },
+};
+
+// ── CALENDAR WEEKS ──
+const calWeeks = [
+  {
+    theme:'第一週｜認識你', phase:'PHASE 01 · AWARENESS', color:'wt-c1',
+    desc:'法會 + 品牌故事，讓觀眾知道貝兒是誰',
+    dates:['4/13','4/14','4/15','4/16','4/17','4/18','4/19']
+  },
+  {
+    theme:'第二週｜建立信任', phase:'PHASE 02 · TRUST', color:'wt-c2',
+    desc:'八字個性解讀 + 個案故事，讓觀眾覺得「她真的懂」',
+    dates:['4/20','4/21','4/22','4/23','4/24','4/25','4/26']
+  },
+  {
+    theme:'第三週｜情感共鳴', phase:'PHASE 03 · RESONANCE', color:'wt-c3',
+    desc:'三族群內容大量輸出，讓觀眾覺得「這說的就是我」',
+    dates:['4/27','4/28','4/29','4/30']
+  },
+];
+
+function renderCal(){
+  const today = new Date();
+  const todayStr = `${today.getMonth()+1}/${today.getDate()}`;
+  let html = '';
+
+  calWeeks.forEach(week => {
+    const firstDow = days[week.dates[0]]?.dow || 0;
+    const lastDow  = days[week.dates[week.dates.length-1]]?.dow || 6;
+
+    html += `<div class="week-block">
+      <div class="week-theme-bar ${week.color}" onclick="toggleWeek(this)">
+        <div class="wt-left">
+          <div class="wt-phase">${week.phase}</div>
+          <div class="wt-title">${week.theme}</div>
+          <div class="wt-desc">${week.desc}</div>
+        </div>
+        <div class="wt-toggle open">▾</div>
+      </div>
+      <div class="week-grid" style="display:grid">`;
+
+    for(let i=0;i<firstDow;i++) html+=`<div class="cal-cell empty"></div>`;
+
+    week.dates.forEach(dateStr => {
+      const d = days[dateStr];
+      if(!d) return;
+      const isToday = dateStr===todayStr;
+      const cls=['cal-cell', isToday?'today':'', d.special?'special':''].filter(Boolean).join(' ');
+      const dayNum = dateStr.split('/')[1];
+      html += `<div class="${cls}" onclick="showDay('${dateStr}')">
+        <div class="c-date">${dayNum}</div>
+        <div class="c-tags">${d.tags.map(t=>`<div class="c-tag ${t[0]}">${t[1]}</div>`).join('')}</div>
+      </div>`;
+    });
+
+    for(let i=lastDow+1;i<7;i++) html+=`<div class="cal-cell empty"></div>`;
+    html += `</div></div>`;
+  });
+
+  document.getElementById('cal-body').innerHTML = html;
+}
+
+function toggleWeek(bar){
+  const grid = bar.nextElementSibling;
+  const toggle = bar.querySelector('.wt-toggle');
+  const isOpen = grid.style.display !== 'none';
+  grid.style.display = isOpen ? 'none' : 'grid';
+  toggle.classList.toggle('open', !isOpen);
+}
+
+function showDay(dateStr){
+  const d = days[dateStr];
+  if(!d) return;
+
+  document.getElementById('popup-title').textContent = d.title;
+  document.getElementById('popup-sub').textContent = `🧠 ${d.psych}`;
+
+  let html = '';
+
+  // Reels
+  if(d.reels){
+    html += `<div class="content-block">
+      <div class="cb-header">
+        <div class="cb-icon cb-icon-reels">🎬</div>
+        <div><div class="cb-label cb-label-reels">REELS</div>
+        <div class="cb-title">${d.reels.type}</div></div>
+      </div>
+      <div class="cb-body">
+        <div class="cb-hook">💥 開頭鉤子：${d.reels.hook}</div>
+        <div class="cb-theme">${d.reels.theme}</div>
+        <div class="cb-desc" style="margin-top:5px">${d.reels.structure||d.reels.desc}</div>
+      </div>
+    </div>`;
+  }
+
+  // Post
+  if(d.post){
+    html += `<div class="content-block">
+      <div class="cb-header">
+        <div class="cb-icon cb-icon-post">✍️</div>
+        <div><div class="cb-label cb-label-post">貼文</div>
+        <div class="cb-title">${d.post.type}</div></div>
+      </div>
+      <div class="cb-body">
+        <div class="cb-hook">💬 開頭鉤子：${d.post.hook}</div>
+        <div class="cb-theme">${d.post.theme}</div>
+        <div class="cb-desc" style="margin-top:5px">${d.post.desc}</div>
+        ${d.post.example?`<div class="cb-example">📝 參考方向：${d.post.example}</div>`:''}
+        ${d.post.cta?`<div class="cb-tip">🔗 CTA：${d.post.cta}</div>`:''}
+      </div>
+    </div>`;
+  }
+
+  // Story
+  if(d.story){
+    html += `<div class="content-block">
+      <div class="cb-header">
+        <div class="cb-icon cb-icon-story">📱</div>
+        <div><div class="cb-label cb-label-story">限動</div>
+        <div class="cb-title">${d.story.theme}</div></div>
+      </div>
+      <div class="story-list">
+        ${d.story.slots.map((s,i)=>`
+          <div class="story-item">
+            <div class="si-num">${i+1}</div>
+            <div class="si-body">
+              <div class="si-type">${s.type}</div>
+              <div class="si-desc">${s.desc}</div>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    </div>`;
+  }
+
+  document.getElementById('popup-body').innerHTML = html;
+  document.getElementById('popup-overlay').classList.add('show');
+}
+
+function closePopup(e){
+  if(!e || e.target===document.getElementById('popup-overlay')){
+    document.getElementById('popup-overlay').classList.remove('show');
+  }
+}
+
+renderCal();
+</script>
+</body>
+</html>
